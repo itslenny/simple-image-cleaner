@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Cleaner</title>
+
+    <style>
+        body {
+            text-align: center;
+        }
+
+        #image-preview {
+            max-height: 60vh;
+            min-height: 20vh;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 id="label-dir"></h1>
+    <div>
+        <img src="" id="image-preview">
+    </div>
+    <h3 id="label-file"></h3>
+    <h4 id="label-index"></h4>
+    <br>
+    <h5>Navigate: [&larr;] / [&rarr;]. Delete: [D]</h5>
+    <script>
+        // page elements
+        const imagePreview = document.getElementById('image-preview');
+        const labelDir = document.getElementById('label-dir');
+        const labelFile = document.getElementById('label-file');
+        const labelIndex = document.getElementById('label-index');
+
+        // counters
+        let imageIndex = 0;
+        let maxImage = 0;
+
+        async function loadImage() {
+            const response = await fetch('/image/' + imageIndex);
+            const body = await response.json();
+            const ext = body.file.match(/\.([0-9a-z]+)$/i)?.[1] || 'jpg';
+            console.log('ext', ext);
+            imagePreview.setAttribute('src', `data:image/${ext};base64, ` + body.data)
+            labelDir.innerText = body.dir;
+            labelFile.innerText = body.file + (body.deleted ? ' (DELETED)' : '');
+            labelIndex.innerText = `(${imageIndex + 1}/${body.length})`;
+            maxImage = body.length - 1;
+        }
+
+        async function deleteImage() {
+            const response = await fetch('/image/' + imageIndex, { method: 'DELETE' });
+            loadImage();
+        }
+
+        loadImage();
+        window.addEventListener('keyup', e => {
+            switch (e.key.toLowerCase()) {
+                case 'd':
+                    deleteImage();
+                    break;
+                case 'arrowleft':
+                    if (imageIndex > 0) {
+                        imageIndex--;
+                        loadImage();
+                    } else {
+                        alert('Reached beginning of images')
+                    }
+                    break;
+                case 'arrowright':
+                    if (imageIndex < maxImage) {
+                        imageIndex++;
+                        loadImage();
+                    } else {
+                        alert('Reached end of images');
+                    }
+                    break;
+            }
+        });
+
+    </script>
+</body>
+
+</html>
