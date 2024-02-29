@@ -27,3 +27,6 @@ This is a common folder structure for training data where each folder represents
 
 > Note: when you press `D` the file will be immediately deleted. This cannot be undone.
 
+## Example
+
+![](simple-image-cleaner-demo.webp)
