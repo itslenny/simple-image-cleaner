@@ -42,9 +42,10 @@ try {
 console.info('Loaded images', IMAGES.length, 'from path:', IMAGE_PATH);
 console.info(' ');
 
-console.info('Starting server...')
+console.info('Starting http server...')
 console.info('  ');
 http.createServer((req, res) => {
+    // Split url path components
     const path = req.url.trim().replace(/^\/+|\/+$/g, '').split('/')
 
     switch (path[0]) {
@@ -62,8 +63,9 @@ http.createServer((req, res) => {
             }
 
             switch (req.method.toUpperCase()) {
+
+                // get image by index
                 case 'GET':
-                    // get image by index
                     res.writeHead(200, { 'Content-Type': 'application/json' })
 
                     const image = IMAGES[imageIndex];
@@ -74,8 +76,9 @@ http.createServer((req, res) => {
                     };
                     res.write(JSON.stringify(imageData));
                     break;
+
+                // delete image by index
                 case 'DELETE':
-                    // delete image by index
                     res.writeHead(200, 'Deleted')
                     try {
                         fs.rmSync(IMAGES[imageIndex].path);
@@ -91,11 +94,12 @@ http.createServer((req, res) => {
             }
             break;
 
-        // 404 not found
+        // All others = 404 not found
         default:
             res.writeHead(404, 'Not Found');
     }
-    // end the response
+
+    // Finalize (close) the response
     res.end();
 }).listen(PORT, () => {
     console.info('LISTENING ON PORT', PORT);

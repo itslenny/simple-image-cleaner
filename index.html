@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Cleaner</title>
+    <title>Simple Image Cleaner</title>
 
     <style>
         body {
@@ -20,21 +20,20 @@
 
 <body>
     <h1 id="label-dir"></h1>
-    <div>
-        <img src="" id="image-preview">
-    </div>
+    <div><img src="" id="image-preview"></div>
     <h3 id="label-file"></h3>
     <h4 id="label-index"></h4>
     <br>
     <h5>Navigate: [&larr;] / [&rarr;]. Delete: [D]</h5>
+
     <script>
-        // page elements
+        // Page element references
         const imagePreview = document.getElementById('image-preview');
         const labelDir = document.getElementById('label-dir');
         const labelFile = document.getElementById('label-file');
         const labelIndex = document.getElementById('label-index');
 
-        // counters
+        // Image counters
         let imageIndex = 0;
         let maxImage = 0;
 
@@ -55,7 +54,7 @@
             loadImage();
         }
 
-        loadImage();
+        // Listen for key events
         window.addEventListener('keyup', e => {
             switch (e.key.toLowerCase()) {
                 case 'd':
@@ -80,6 +79,8 @@
             }
         });
 
+        // Load first image
+        loadImage();
     </script>
 </body>
 
