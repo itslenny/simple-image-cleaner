@@ -8,13 +8,13 @@ To function it requires a directory structure as follows:
 
 - images/
     - label/
-        somefile.jpg
-        somefile.png
-        somefile.gif
+        - somefile.jpg
+        - somefile.png
+        - somefile.gif
     - other-label/
-        afile.jpg
-        bfile.png
-        cfile.gif
+        - afile.jpg
+        - bfile.png
+        - cfile.gif
 
 This is a common folder structure for training data where each folder represents a label containing images of that type.
 
