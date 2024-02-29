@@ -22,8 +22,9 @@ This is a common folder structure for training data where each folder represents
 
 - Run: `npm start /path/to/images/folder`
 - Open your web browser to http://localhost:8080
-- Use left/right arrow keys to navigate through images
-- Press the `D` key to delete the current image
+- Use keyboard controls to navigate / delete
+    - Use left/right arrow keys to navigate through images
+    - Press the `D` key to delete the current image
 
 > Note: when you press `D` the file will be immediately deleted. This cannot be undone.
 
